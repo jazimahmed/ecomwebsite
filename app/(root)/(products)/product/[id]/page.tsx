@@ -8,12 +8,10 @@ import { auth } from "@/auth"
 import DetailPageAddress from '@/components/DetailPageAddress'
 
 
-interface ProductPageProps {
-  params: { id: string }
-}
 
 
-const page = async({ params }: ProductPageProps) => {
+
+const Page = async({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
 
   const [session, item] = await Promise.all([
@@ -100,4 +98,4 @@ const page = async({ params }: ProductPageProps) => {
   )
 }
 
-export default page
+export default Page

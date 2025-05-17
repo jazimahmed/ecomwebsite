@@ -7,7 +7,7 @@ import { auth } from "@/auth"
 import { Prisma } from "@prisma/client";
 
 
-export default async function Home({ searchParams }: { searchParams: { search?: string; category?: string; sort?: "price-asc" | "price-desc" | "rating-asc" | "rating-desc"; } }) {
+export default async function Home({ searchParams }: { searchParams: Promise<{ search?: string; category?: string; sort?: "price-asc" | "price-desc" | "rating-asc" | "rating-desc" }> }) {
   const {search , category, sort} = await searchParams;
   const searchQuery = search?.toLowerCase() || "";
   const categoryQuery = category?.toLowerCase() || "";

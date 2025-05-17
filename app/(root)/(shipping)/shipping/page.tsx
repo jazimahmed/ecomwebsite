@@ -3,20 +3,19 @@ import Navbar from '@/components/Navbar';
 import Paybutton from '@/components/Paybutton';
 import { prisma } from '@/lib/prisma';
 import React from 'react';
-type Props = {
-  searchParams: {
-    id?: string;
-    quantity?: string;
-  };
-};
 
 
-const page = async ({ searchParams }: Props) => {
+
+
+const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; quantity?: string}> }) => {
 
   const discount = 0;
   const delivery = 0;
+  const {id, quantity} = await searchParams;
 
-  const{id , quantity} = await searchParams;
+
+  // const id = searchParams?.id as string | undefined;
+  // const quantity = searchParams?.quantity as string | undefined;
   
 
   const item = await prisma.ecomItems.findUnique({
