@@ -1,4 +1,5 @@
 'use server'
+import { auth } from '@/auth';
 
 import { signIn } from "next-auth/react";
 import { prisma } from '@/lib/prisma' // Adjust path if needed
@@ -20,6 +21,8 @@ export const register = async (_prevState: RegisterFormState, formData: FormData
   const email = formData.get('email') as string
   const password = formData.get('password') as string
   const username = formData.get('username') as string
+  const mobile = formData.get('mobile') as string
+  const address = formData.get('address') as string
 
 
 console.log(email,password,username);
@@ -42,6 +45,8 @@ console.log(email,password,username);
       username,
       email,
       password: hashedPassword,
+      mobile,
+      address
     },
   })
   
@@ -49,4 +54,54 @@ console.log(email,password,username);
   return { success: true, message: 'User registered successfully.',email, password }
 }
 
+export async function handleAddToCart(prevState: any, formData: FormData) {
+  const session = await auth();
+  
+  if (!session) {
+    return { success: false, message: 'unautherized' }
+  }
+  const id = formData.get('id') as string
+  const quantityStr = formData.get('quantity') as string  
+
+  if (!id || !quantityStr) {
+    return { success: false, message: 'Missing item or quantity' }
+  }
+
+  const quantity = parseInt(quantityStr, 10)  
+
+  if (isNaN(quantity)) {
+    return { success: false, message: 'Invalid quantity' }
+  }
+
+  await prisma.ecomCart.create({
+    data: {
+      prodId: id,
+      quantity,
+      userEmail: session?.user?.email as string,
+    },
+  })
+
+  return { success: true, message: `Added ${quantity} item(s) to cart!` }
+}
+
+type UserData = {
+  id?: string;
+    profilePic?: string;
+    username: string;
+    email: string;
+    mobile?: string;
+    address?: string;
+};
+
+export async function updateUser(data: UserData) {
+  return await prisma.ecomUser.update({
+    where: { id: data.id },
+    data: {
+      username: data.username,
+      email: data.email,
+      mobile: data.mobile,
+      address: data.address,
+    },
+  });
+}
 

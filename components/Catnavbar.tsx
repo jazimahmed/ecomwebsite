@@ -1,6 +1,7 @@
 'use client'
 
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,28 +11,36 @@ import {
 import { ChevronDown } from "lucide-react"
 
 export default function Catnavbar() {
+  const router = useRouter()
+
+  const handleSelect = (value: string) => {
+    router.push(`/?category=${value}`)
+  }
+
   return (
-    <div className="bg-muted px-6 py-3 flex items-center justify-start gap-30 border-b">
-      {/* Category Dropdown Button */}
+    <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="lg" variant="outline" className="flex items-center gap-2">
+          <Button
+            size="lg"
+            variant="outline"
+            className="flex items-center gap-2 bg-blue-300 h-10 w-35 text-lg text-gray-700 hover:bg-blue-400"
+          >
             Categories <ChevronDown size={18} />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem>Electronics</DropdownMenuItem>
-          <DropdownMenuItem>Fashion</DropdownMenuItem>
-          <DropdownMenuItem>Home & Kitchen</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => handleSelect("beauty")}>
+            beauty
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => handleSelect("fashion")}>
+            Fashion
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => handleSelect("home-kitchen")}>
+            Home & Kitchen
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
-      {/* Individual Category Buttons */}
-      <div className="flex  gap-20">
-        <Button size="lg" variant="outline">Men</Button>
-        <Button size="lg" variant="outline">Women</Button>
-        <Button size="lg" variant="outline">Kids</Button>
-      </div>
     </div>
   )
 }

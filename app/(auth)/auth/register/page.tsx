@@ -1,14 +1,61 @@
 'use client'
 
-import { useActionState, useEffect, useState } from 'react'
+import { useActionState, useEffect, useState,startTransition } from 'react'
 import { signIn } from 'next-auth/react'
 import { register } from '@/lib/actions'
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
+import ClipLoader from "react-spinners/ClipLoader";
+import { Github } from 'lucide-react';
+import { registerSchema } from '@/lib/zodSchemas'
+import Link from 'next/link';
+
 
 
 export default function LoginForm() {
   const router = useRouter();
+  const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  function handleClick(e : any) {
+    e.preventDefault(); 
+
+    const form = document.querySelector("form");
+    if (!(form instanceof HTMLFormElement)) return;
+    const formData = new FormData(form);
+      
+  
+    const data = {
+      username: formData.get("username")?.toString() || '',
+      email: formData.get("email")?.toString() || '',
+      password: formData.get("password")?.toString() || '',
+      mobile: formData.get("mobile")?.toString() || '',
+      address: formData.get("address")?.toString() || '',
+    };
+  
+    const result = registerSchema.safeParse(data);
+    console.log('clicked',result)
+
+
+    if (!result.success) {
+
+
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setErrors(fieldErrors); 
+      return;
+    }
+  
+    
+    
+  
+    setErrors({});
+
+
+
+    startTransition(() => {
+      formAction(formData);
+    });
+  }
+
 
   const [state, formAction, isPending] = useActionState(register, {
         success: false,
@@ -18,6 +65,8 @@ export default function LoginForm() {
       })
 
       useEffect(()=>{
+        
+
         let res = null;
         if(state.success && state.message){
           const handleauth = async()=>{
@@ -29,11 +78,16 @@ export default function LoginForm() {
           });
           if(res?.ok){
             
+            
             toast.success('Registration successful!');
+            
+
             router.push('/');
           }else{
             
+
             toast.error('registered but not session created');
+            
             
             
           }
@@ -51,9 +105,16 @@ export default function LoginForm() {
       
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div  className='flex flex-row'>
+    <div className='w-1/2'><img
+        src="/login.jpg"     
+        alt="User Profile Picture"
+                                      
+      />
+      </div>
+    <div className="flex justify-center items-center max-h-screen bg-gray-100 w-1/2">
       <div className="max-w-sm w-full p-6 bg-white rounded-lg shadow-xl space-y-6">
-        <form action={formAction} className="space-y-4">
+        <form onSubmit={handleClick} className="space-y-4">
         <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
               username
@@ -61,23 +122,27 @@ export default function LoginForm() {
             <input
               id="username"
               type="text"
-              name='username'
+              name="username"
               required
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
           </div>
-          <div>
+
+        <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email
             </label>
             <input
               id="email"
               type="email"
-              name='email'
+              name="email"
               required
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             />
+            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email[0]}</p>}
           </div>
+
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Password
@@ -85,17 +150,50 @@ export default function LoginForm() {
             <input
               id="password"
               type="password"
-              name='password'
+              name="password"
               required
               className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
             />
+            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password[0]}</p>}
           </div>
+
+          <div>
+            <label htmlFor="mobile" className="block text-sm font-medium text-gray-700">
+              Mobile
+            </label>
+            <input
+              id="mobile"
+              type="text"
+              name="mobile"
+              required
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.mobile && <p className="text-red-500 text-xs mt-1">{errors.mobile[0]}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+              Address
+            </label>
+            <input
+              id="address"
+              type="text"
+              name="address"
+              required
+              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.address && <p className="text-red-500 text-xs mt-1">{errors.address[0]}</p>}
+          </div>
+
           <button
+            
             type="submit"
+            disabled={isPending}
             className="cursor-pointer w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Register
+             {!isPending? "Register": <ClipLoader color="#3b82f6"  />}
           </button>
+          <label className='text-sm ml-12 mr-4'>Already have an Account?</label><Link href='/auth/login'><label className='text-sm font-bold cursor-pointer underline '>Login</label></Link>
         </form>
 
         <div className="flex items-center space-x-2">
@@ -110,10 +208,15 @@ export default function LoginForm() {
           onClick={() => signIn('github')}
           className="cursor-pointer w-full border-2 border-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
-          Sign in with GitHub
+          <div className='flex flex-row justify-center item-center gap-4'>
+            <div>Sign in with GitHub</div>
+            <div><Github /></div>
+          </div>
         </button>
-        <div>{isPending? ('loading...') :(null)}</div>
+        
+        
       </div>
+    </div>
     </div>
   )
 }

@@ -1,36 +1,58 @@
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu"
 import { ShoppingCart, User, ChevronDown, Search } from "lucide-react"
+import Link from "next/link"
+import Searchbox from "./Searchbox"
+import LogoutButton from "./LogoutButton"
+import AvatarCom from "./AvatarCom"
+import Catnavbar from "./Catnavbar"
+import Cartbutton from "./Cartbutton"
+type Props = {
+  search?: string;
+  session?: boolean
+};
 
-const Navbar = () => {
+
+const Navbar = ({ search, session }: Props) => {
+
+  
+  
+  
+  
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
+    <nav className="flex items-center justify-between px-10 py-4 bg-blue-300 shadow-sm text-lg w-full z-[9999]">
       
-      {/* Title / Logo */}
-      <div className="flex items-center gap-2">
-        <img
-          src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
-          alt="Logo"
-          className="h-8"
-        />
-        <span className="text-xl font-semibold">EComStore</span>
-      </div>
+      
+      <Link href={'/'}>
+        <div className="flex items-center gap-3">
+          <img
+            src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
+            alt="Logo"
+            className="h-10 w-10"
+          />
+          <span className="text-2xl font-bold">EComStore</span>
+        </div>
+      </Link>
 
-      {/* Search Bar */}
-      <div className="relative w-1/3 max-w-sm">
-        <Input placeholder="Search products..." className="pl-10" />
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-      </div>
+      <Catnavbar/>
 
-      {/* Right Section */}
-      <div className="flex items-center gap-4">
+      <Searchbox searchParam={search}/>
 
-        {/* Currency Dropdown */}
-        <DropdownMenu>
+
+      
+      <div className="flex items-center gap-6">
+
+        
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="flex items-center gap-1">
-              USD <ChevronDown className="h-4 w-4" />
+            <Button variant="outline" className="flex items-center gap-2 px-4 py-2 text-base bg-blue-300 hover:bg-blue-400 ">
+              USD <ChevronDown className="h-5 w-5" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -39,22 +61,44 @@ const Navbar = () => {
             <DropdownMenuItem>LKR</DropdownMenuItem>
             <DropdownMenuItem>INR</DropdownMenuItem>
           </DropdownMenuContent>
+        </DropdownMenu> */}
+
+        {/* Cart Icon */}
+        <Cartbutton session={session}/>
+
+        {/* Profile Links */}
+        {!session ? (
+          <div className="flex items-center gap-2 text-base">
+            <User className="h-5 w-5" />
+            <a href="/auth/login" className="hover:underline">Login</a> /
+            <a href="/auth/register" className="hover:underline">Register</a>
+          </div>
+        ) : (
+          <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <div className="cursor-pointer">
+              <AvatarCom />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem asChild>
+              <Link href="/profile">Go to Profile</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <LogoutButton />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
         </DropdownMenu>
+        )}
+       
 
-        {/* Profile */}
-        <div className="flex items-center gap-2">
-          <User className="h-5 w-5" />
-          <a href="/auth/login" className="text-sm hover:underline">Login</a> /
-          <a href="/auth/register" className="text-sm hover:underline">Register</a>
-        </div>
 
-        {/* Cart Button */}
-        <Button variant="outline" size="icon">
-          <ShoppingCart className="h-5 w-5" />
-        </Button>
+        
       </div>
     </nav>
   )
 }
 
 export default Navbar
+
+

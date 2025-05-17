@@ -17,48 +17,60 @@ const Carousel = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % images.length)
-  }
-
-  const prevSlide = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length)
-  }
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length)
+  const prevSlide = () => setCurrent((prev) => (prev - 1 + images.length) % images.length)
 
   return (
-    <div className='w-full h-[360px] bg-gray-100 pt-10 '>
-    <div className="relative w-[1000px]  mx-auto overflow-hidden shadow-xl bg-gray-600">
-      <div className="flex transition-transform duration-700 ease-in-out  " style={{ transform: `translateX(-${current * 100}%)` }}>
+    <div className="w-full max-w-4xl mx-auto mt-10 rounded-xl overflow-hidden shadow-lg relative select-none bg-gray-100">
+      <div
+        className="flex transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${current * 100}%)` }}
+      >
         {images.map((src, idx) => (
-          <img key={idx} src={src} alt={`slide-${idx}`} className="w-full flex-shrink-0 h-72 object-cover" />
+          <img
+            key={idx}
+            src={src}
+            alt={`Slide ${idx + 1}`}
+            className="w-full flex-shrink-0 h-80 object-cover"
+            loading="lazy"
+          />
         ))}
       </div>
 
-      {/* Buttons */}
+      {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-3 py-1 rounded-full shadow"
+        aria-label="Previous Slide"
+        className="absolute top-1/2 left-3 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 text-gray-800 p-2 rounded-full shadow-lg transition"
       >
-        ◀
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
       </button>
+
       <button
         onClick={nextSlide}
-        className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/80 hover:bg-white text-black px-3 py-1 rounded-full shadow"
+        aria-label="Next Slide"
+        className="absolute top-1/2 right-3 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 text-gray-800 p-2 rounded-full shadow-lg transition"
       >
-        ▶
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3">
         {images.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            className={`w-3 h-3 rounded-full ${idx === current ? 'bg-black' : 'bg-gray-300'}`}
+            aria-label={`Go to slide ${idx + 1}`}
+            className={`w-4 h-4 rounded-full transition-all ${
+              idx === current ? 'bg-blue-600 scale-110' : 'bg-gray-300 hover:bg-gray-400'
+            }`}
           />
         ))}
       </div>
-    </div>
     </div>
   )
 }

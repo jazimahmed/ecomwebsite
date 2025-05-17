@@ -1,7 +1,6 @@
 import Navbar from '@/components/Navbar'
 import React from 'react'
 import { auth } from '@/auth'
-import { SessionProvider } from "@/context/UserContaxt";
 
 
 export const metadata ={
@@ -13,13 +12,14 @@ const layout = async ({children}:{children: React.ReactNode}) => {
   const session = await auth();
   const bool = session?true:false;
   return (
-      <SessionProvider initialSession={bool}>
+      
           <main className='font-work-sans'>
+            <Navbar search='' session={bool}/>
               
               {children}
           </main>
 
-      </SessionProvider>
+      
   )
 }
 

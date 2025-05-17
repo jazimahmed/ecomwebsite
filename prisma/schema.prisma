@@ -12,18 +12,34 @@ model ecomUser {
   username String  
   email    String  @unique
   password String
+  mobile   String?
+  address  String? 
+  profilePic String?
   createdAt   DateTime @default(now())
 }
+model ecomItems {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  price     Float
+  rating    Float
+  category  String
+  thumbnail String
+  sold      Int
+  email     String
+  brand     String
+}
+model ecomCart {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  prodId    String  
+  userEmail String
+  quantity  Int 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt    
+}
 
-// model Cart {
-//   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-//   userId      String   @db.ObjectId
-//   amount      Float
-//   category    String
-//   description String
-//   createdAt   DateTime @default(now())
-//   updatedAt   DateTime @updatedAt
-// }
+
+
+
 
 // model myOrders {
 //   id          String   @id @default(auto()) @map("_id") @db.ObjectId
