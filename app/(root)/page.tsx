@@ -1,18 +1,19 @@
 import Carousel from "@/components/Carousel";
-import Catnavbar from "@/components/Catnavbar";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import { auth } from "@/auth"
+import { Prisma } from "@prisma/client";
 
 
 export default async function Home({ searchParams }: { searchParams: { search?: string; category?: string; sort?: "price-asc" | "price-desc" | "rating-asc" | "rating-desc"; } }) {
-  const searchQuery = await searchParams.search?.toLowerCase() || "";
-  const categoryQuery = await searchParams.category?.toLowerCase() || "";
-  const sortQuery = await searchParams.sort || "";
+  const {search , category, sort} = await searchParams;
+  const searchQuery = search?.toLowerCase() || "";
+  const categoryQuery = category?.toLowerCase() || "";
+  const sortQuery = sort?.toLowerCase() || "";
 
-  let orderBy: any = {};
+  let orderBy: { [key: string]: "asc" | "desc" } = {};
 
   if (sortQuery === "price-asc") {
     orderBy = { price: "asc" };
@@ -24,10 +25,19 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
     orderBy = { rating: "desc" };
   } else {
     orderBy = { id: "desc" }; 
-  }
+  };
+  type ProductItem = {
+    id: string;
+    title: string;
+    price: number;
+    rating: number;
+    sold?: number;
+    thumbnail: string;
+  };
+  
 
 
-  const filters: any[] = [];
+  const filters: Prisma.ecomItemsWhereInput[] = [];
 
   if (searchQuery) {
     filters.push({
@@ -78,7 +88,7 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
         {!searchQuery && !categoryQuery && <div className="z-0">
           <div className="flex flex-row gap-10 mt-10">
             <div className="w-2/3"><Carousel /></div>
-            <div className="w-1/3"><img src='/offer.png' className="w-[400px] "/></div>
+            <div className="w-1/3"><img src='/offer.png' className="w-[400px] " alt="offerpic"/></div>
             </div>
 
 
@@ -87,12 +97,13 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
       
       {(searchQuery) && (
         <div className="text-3xl px-20 py-10 bg-gray-200">
-          Search result for "{searchQuery}"
+          Search result for “{searchQuery}”
+
         </div>
       )}
       {(categoryQuery) && (
         <div className="text-3xl px-20 py-10 bg-gray-200">
-          Category result for "{categoryQuery}"
+          Category result for “{categoryQuery}”
         </div>
       )}
       
@@ -100,7 +111,7 @@ export default async function Home({ searchParams }: { searchParams: { search?: 
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 bg-gray-100 px-20 pt-10">
         {products.length > 0 ? (
-          products.map((item: any) => (
+          products.map((item: ProductItem) => (
             <Link href={`/product/${item.id}`} key={item.id}>
               <ProductCard
                 image={item.thumbnail}

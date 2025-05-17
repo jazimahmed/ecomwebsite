@@ -7,15 +7,27 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation'
 import { useSession } from "@/context/UserContaxt";
 
+type ProductItem = {
+  id: string;
+  title: string;
+  price: number;
+  rating: number;
+  brand: string;
+};
 
-const Itemdetailsbox = ({ item }: { item: any }) => {
+const Itemdetailsbox = ({ item }: { item: ProductItem }) => {
     const router = useRouter();
     const { session } = useSession();
 
     //console.log(session,'1010')
-    const formAction2 = async (prevState: any, formData: FormData) => {
+    type FormState = {
+      success: boolean;
+      message: string;
+    };
+    const formAction2 = async (prevState: FormState, formData: FormData) => {
       return await handleAddToCart(prevState, formData);
     };
+
 
 
     const [quantity, setQuantity] = useState(1);

@@ -4,10 +4,13 @@ import React from 'react'
 import { Button } from './ui/button'
 import { ShoppingCart } from "lucide-react"
 import { useRouter } from 'next/navigation'
-import { auth } from '@/auth'
 import { toast } from 'react-toastify'
+type Props = {
+  
+  session?: boolean
+};
 
-const Cartbutton = ({session}: any) => {
+const Cartbutton = ({session}: Props) => {
   const router = useRouter();
   
 

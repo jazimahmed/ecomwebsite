@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 
 import {
   DropdownMenu,
@@ -6,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
-import { ShoppingCart, User, ChevronDown, Search } from "lucide-react"
+import { User} from "lucide-react"
 import Link from "next/link"
 import Searchbox from "./Searchbox"
 import LogoutButton from "./LogoutButton"

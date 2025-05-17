@@ -13,11 +13,11 @@ type Props = {
 
 const page = async ({ searchParams }: Props) => {
 
-  let discount = 0;
-  let delivery = 0;
+  const discount = 0;
+  const delivery = 0;
 
-  const id =  searchParams?.id || '';
-  const quantity =  searchParams?.quantity || '';
+  const{id , quantity} = await searchParams;
+  
 
   const item = await prisma.ecomItems.findUnique({
     where: { id },
@@ -37,7 +37,7 @@ const page = async ({ searchParams }: Props) => {
   //   "sold": 120
   // }
 
-  const totforquantity = item?.price * parseInt(quantity);
+  const totforquantity = item?.price * parseInt(quantity as string);
   
   return (
     <>

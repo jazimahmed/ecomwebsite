@@ -1,7 +1,5 @@
 'use server'
 import { auth } from '@/auth';
-
-import { signIn } from "next-auth/react";
 import { prisma } from '@/lib/prisma' // Adjust path if needed
 import bcrypt from 'bcrypt'
 interface RegisterFormState {
@@ -16,6 +14,7 @@ interface RegisterFormState {
   success: boolean
   message?: string
 }
+
 
 export const register = async (_prevState: RegisterFormState, formData: FormData): Promise<RegisterFormState> => {
   const email = formData.get('email') as string
@@ -50,11 +49,18 @@ console.log(email,password,username);
     },
   })
   
+  
+  
 
   return { success: true, message: 'User registered successfully.',email, password }
 }
 
-export async function handleAddToCart(prevState: any, formData: FormData) {
+export type CartFormState = {
+  success: boolean;
+  message: string;
+};
+
+export async function handleAddToCart(prevState: CartFormState, formData: FormData) {
   const session = await auth();
   
   if (!session) {
