@@ -22,7 +22,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState<{ email?: string; password?: string }>({});
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     const validation = loginSchema.safeParse({email,password});

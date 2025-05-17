@@ -16,7 +16,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
-  function handleClick(e : any) {
+  function handleClick(e : React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); 
 
     const form = document.querySelector("form");

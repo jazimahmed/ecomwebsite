@@ -1,8 +1,6 @@
 import React from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import Link from 'next/link'
-import { toast } from 'react-toastify'
 import Itemdetailsbox from '@/components/Itemdetailsbox'
 import { prisma } from '@/lib/prisma'
 import Navbar from '@/components/Navbar'
