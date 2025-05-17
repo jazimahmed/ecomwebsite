@@ -3,9 +3,9 @@
 
 import { prisma } from '@/lib/prisma'
 
-export async function getUserById(userId: string) {
+export async function getUserById(email: string) {
   const user = await prisma.ecomUser.findUnique({
-    where: { email: userId },
+    where: { email: email },
   })
   return user
 }
