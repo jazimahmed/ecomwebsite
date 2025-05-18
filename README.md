@@ -10,7 +10,10 @@ A full-stack e-commerce application built with **Next.js**, **Tailwind CSS**, **
 ![item details view](https://i.ibb.co/j9p8DYm2/image.png)
 ![shipping details view](https://i.ibb.co/TM3jsJdY/image.png)
 ![cart details view](https://i.ibb.co/yB8qkRnQ/image.png)
-![cart details view](https://i.ibb.co/yB8qkRnQ/image.png)
+![login page view](https://i.ibb.co/spn0JdSw/image.png)
+![register page view](https://i.ibb.co/4ZShP5yn/image.png)
+![profile page view](https://i.ibb.co/8n1BPh4x/image.png)
+
 
 
 ---
