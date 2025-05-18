@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 E-Commerce Web App (Next.js & Prisma)
 
-## Getting Started
+A full-stack e-commerce application built with **Next.js**, **Tailwind CSS**, **Prisma**, and **MongoDB**. This project includes user authentication, product listing, cart functionality.
 
-First, run the development server:
+---
+
+## 📸 Screenshots
+
+![Dashboard Screenshot](https://i.ibb.co/LH914HQ/image.png)  
+![Mobile View](https://i.ibb.co/GQnBWLFK/image.png)
+
+---
+
+## 🚀 Features
+
+- ✅ User registration and login using both credential method and git hub O auth method
+- ✅ View all products and filter by category
+- ✅ View profile page details and edit details
+- ✅ Add to cart and manage cart items
+- ✅ Simple Checkout functionality 
+- ✅ UI using Tailwind CSS and shadcn
+- ✅ Redux Toolkit for cart and global state management
+- ✅ Product images and descriptions
+- ✅ Toast notifications for success/errors
+- ✅ used Zod for data validation
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend & Backend:** Next.js 14 (App Router), Tailwind CSS, Redux Toolkit  
+- **Database:** MongoDB with Prisma ORM  
+- **Authentication:** NextAuth.js  
+- **Libraries & Tools:**  dotenv, bcrypt, React Toastify, Zod
+
+---
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/jazimahmed/ecomwebsite.git
+cd ecomwebsite
+
+```
+
+### 2. **Install Dependencies**
+
+```bash
+npm install
+# or
+yarn install
+```
+### 3. **Setup Environment Variables**
+Add the following in `.env` (env should under root folder):
+
+```
+DATABASE_URL=your_database_url_here
+```
+
+Add the following in `.env.local` (env should under root folder):
+
+```
+AUTH_SECRET=some_value_here
+AUTH_GITHUB_SECRET=some_value_here
+AUTH_GITHUB_ID=some_value_here
+
+```
+ if you have still confusion see the .env.example file inside project root
+### 4. **Setup Prisma**
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+### 5. **run the app**
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+### 6. **open the browser**
+
+```bash
+Go to: http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🙌 Author
 
-To learn more about Next.js, take a look at the following resources:
+**Jazim Ahmed**  
+📧 mohamedjazim800@gmail.com  
+🔗 [GitHub](https://github.com/jazimahmed)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⭐ Give a Star!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you found this helpful or interesting, feel free to star the repo ✨
