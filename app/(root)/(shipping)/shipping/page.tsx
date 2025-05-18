@@ -3,6 +3,8 @@ import Navbar from '@/components/Navbar';
 import Paybutton from '@/components/Paybutton';
 import { prisma } from '@/lib/prisma';
 import React from 'react';
+import { auth } from "@/auth"
+
 
 
 
@@ -15,12 +17,13 @@ const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; qua
 
 
   // const id = searchParams?.id as string | undefined;
-  // const quantity = searchParams?.quantity as string | undefined;
+  const [session, item] = await Promise.all([
+    auth(),
+    prisma.ecomItems.findUnique({
+      where: { id },
+    }),
+  ]);
   
-
-  const item = await prisma.ecomItems.findUnique({
-    where: { id },
-  });
 
   if (!item) return <div>Product not found.</div>;
   
@@ -40,7 +43,7 @@ const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; qua
   
   return (
     <>
-    <Navbar search={''} />
+    <Navbar search={''} session={session?true:false}/>
     <div className="min-h-screen bg-gray-50 p-6 md:p-10 flex justify-center items-start">
       <div className="bg-white shadow-sm w-full  p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
 
