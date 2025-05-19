@@ -25,15 +25,15 @@ const Navbar = ({ search, session }: Props) => {
   
   
   return (
-    <nav className="flex items-center justify-between px-10 py-4 bg-blue-300 shadow-sm text-lg w-full z-[9999]">
+    <nav className="flex items-center justify-between px-5 md:px-10 py-4 bg-blue-300 shadow-sm text-lg w-full z-[9999]">
       
       
       <Link href={'/'}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center md:gap-3 gap-1">
           <img
             src="https://shadcnblocks.com/images/block/logos/shadcnblockscom-icon.svg"
             alt="Logo"
-            className="h-10 w-10"
+            className="md:h-10 md:w-10 h-7 w-7"
           />
           <span className="text-2xl font-bold"><div className="hidden md:block">EComStore</div></span>
         </div>

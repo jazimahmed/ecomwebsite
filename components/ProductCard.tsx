@@ -14,13 +14,14 @@ const ProductCard = ({ image, title, price, rating, sold }: ProductCardProps) =>
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 max-w-xs w-full">
+    <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-1 max-w-xs w-full">
       <img
         src={image}
         alt={title}
-        className="w-full h-48 object-cover rounded-lg mb-4"
+        className="w-full h-48 object-cover  mb-4"
       />
-      <h3 className="text-lg font-semibold truncate">{title}</h3>
+      <div className="p-3">
+      <h3 className="text-sm md:text-lg font-semibold truncate">{title}</h3>
       <p className="text-primary text-xl font-bold mt-1">${price.toFixed(2)}</p>
 
       {/* Rating */}
@@ -32,11 +33,12 @@ const ProductCard = ({ image, title, price, rating, sold }: ProductCardProps) =>
         {[...Array(emptyStars)].map((_, i) => (
           <Star key={`empty-${i}`} size={16} className="text-gray-300" />
         ))}
-        <span className="text-sm text-gray-600 ml-2">({rating})</span>
+        <span className="text-xs md:text-sm text-gray-600 ml-2">({rating})</span>
       </div>
 
       {/* Sold count */}
-      <p className="text-sm text-gray-500 mt-1">{sold} sold</p>
+      <p className="text-xs md:text-sm text-gray-500 mt-1">{sold} sold</p>
+      </div>
     </div>
   );
 };

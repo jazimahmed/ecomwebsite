@@ -84,7 +84,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
       </div>
       
 
-      <div className="pt-20 bg-gray-100">
+      <div className="pt-10 md:pt-20 bg-gray-100">
         {!searchQuery && !categoryQuery && <div className="z-0">
           <div className="flex md:flex-row flex-col gap-10 mt-10 justify-center item-center">
             <div className="w-full p-3 md:w-2/3"><Carousel /></div>

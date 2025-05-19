@@ -85,14 +85,14 @@ export default function LoginForm() {
 
 
   return (
-    <div className='flex flex-row'>
-      <div className='w-1/2'><img
+    <div className='flex flex-col md:flex-row '>
+      <div className='w-full md:w-1/2 hidden md:block'><img
         src="/login.jpg"     
         alt="User Profile Picture"
                                       
       />
       </div>
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-1/2">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full md:w-1/2">
       <div className="max-w-sm w-full p-6 bg-white rounded-lg shadow-xl space-y-6">
         <form onSubmit={handleSubmit} className="space-y-4">
         

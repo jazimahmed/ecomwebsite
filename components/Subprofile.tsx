@@ -42,30 +42,30 @@ const Subprofile = () => {
   }
 
   return (
-    <div className="max-w-xl mx-auto mt-12 p-8 bg-white shadow-xl rounded-2xl text-center">
+    <div className="max-w-xl mx-auto mt-40 md:mt-12 p-8 bg-white md:shadow-xl rounded-2xl text-center">
       <div className="flex flex-col items-center">
         <img
           src={user.profilePic || '/profiledummy.jpg'}
           alt={`${user.username} Profile`}
-          className="w-32 h-32 rounded-full object-cover border-4 border-blue-400"
+          className="md:w-32 md:h-32 h-16 w-16 rounded-full object-cover border-4 border-blue-400"
         />
-        <h2 className="text-3xl font-bold mt-6 flex items-center gap-2">
+        <h2 className="text-sm md:text-xl md:text-3xl font-bold mt-6 flex items-center gap-2">
           {user.username}
           <Pencil
             className="text-blue-500 cursor-pointer hover:scale-110 transition-transform"
             onClick={() => setIsEditing(!isEditing)}
 
             /> </h2>
-        <p className="text-lg text-gray-600 mt-2">{user.email}</p>
+        <p className="text-sm md:text-lg text-gray-600 mt-2">{user.email}</p>
 
         <div className="mt-6 space-y-4 text-left w-full px-6">
-          <div className="text-lg flex justify-between items-center">
+          <div className="text-sm md:text-lg flex justify-between items-center">
             <span>
               <strong>Mobile:</strong> {user.mobile}
             </span>
           </div>
 
-          <div className="text-lg flex justify-between items-start">
+          <div className="text-sm md:text-lg flex justify-between items-start">
             <span>
               <strong>Address:</strong> {user.address}
             </span>
