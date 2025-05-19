@@ -18,11 +18,11 @@ export default function Catnavbar() {
   }
 
   return (
-    <div>
+    <div className="hidden md:block">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            size="lg"
+            
             variant="outline"
             className="flex items-center gap-2 bg-blue-300 h-10 w-35 text-lg text-gray-700 hover:bg-blue-400"
           >
@@ -36,8 +36,8 @@ export default function Catnavbar() {
           <DropdownMenuItem onSelect={() => handleSelect("fashion")}>
             Fashion
           </DropdownMenuItem>
-          <DropdownMenuItem onSelect={() => handleSelect("home-kitchen")}>
-            Home & Kitchen
+          <DropdownMenuItem onSelect={() => handleSelect("smartphones")}>
+            Smartphones
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

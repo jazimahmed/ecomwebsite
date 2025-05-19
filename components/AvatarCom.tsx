@@ -20,7 +20,7 @@ const AvatarCom = () => {
 
   return (
     <div>
-      <Avatar className="h-14 w-14">
+      <Avatar className="md:h-14 md:w-14 h-10 w-10 ">
         <AvatarImage src={user?.profilePic || "/profiledummy.jpg"} alt="User" />
         <AvatarFallback>U</AvatarFallback>
       </Avatar>

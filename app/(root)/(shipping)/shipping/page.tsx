@@ -11,8 +11,7 @@ import { auth } from "@/auth"
 
 const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; quantity?: string}> }) => {
 
-  const discount = 0;
-  const delivery = 0;
+  
   const {id, quantity} = await searchParams;
 
 
@@ -39,7 +38,20 @@ const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; qua
   //   "sold": 120
   // }
 
+  const today = new Date();
+    const currentMonth = today.toLocaleString('default', { month: 'long' });
+    const currentDay = today.getDate();
+
+  const shippingDate = new Date();
+    shippingDate.setDate(today.getDate() + 14);
+    const shippingMonth = shippingDate.toLocaleString('default', { month: 'long' });
+    const shippingDay = shippingDate.getDate();
+      
+
   const totforquantity = item?.price * parseInt(quantity as string);
+  const discount = (totforquantity * 0.2);
+
+  const delivery = 15;
   
   return (
     <>
@@ -59,8 +71,8 @@ const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; qua
 
             {/* Delivery Info */}
             <div className="mb-3 bg-gray-50 border p-3">
-              <p className="text-lg text-gray-800">Delivery: $. 105</p>
-              <p className="text-lg text-gray-600">14–20 May</p>
+              <p className="text-lg text-gray-800">Delivery: $. {(delivery).toPrecision(4)}</p>
+              <p className="text-lg text-gray-600">{currentMonth} {currentDay} - {shippingMonth} {shippingDay}</p>
             </div>
 
             {/* Product */}
@@ -96,19 +108,19 @@ const page = async ({ searchParams }: { searchParams: Promise<{ id?: string; qua
             <div className="space-y-2 text-lg">
               <div className="flex justify-between">
                 <span>Items</span>
-                <span>$. {totforquantity }</span>
+                <span>$. {(totforquantity).toPrecision(4) }</span>
               </div>
               <div className="flex justify-between">
                 <span>Delivery</span>
-                <span>$. {delivery}</span>
+                <span>$. {(delivery).toPrecision(4)}</span>
               </div>
               <div className="flex justify-between text-green-600">
                 <span>Discount</span>
-                <span>-$. {discount}</span>
+                <span>-$. {(discount).toPrecision(4)}</span>
               </div>
               <div className="border-t pt-2 mt-2 flex justify-between font-semibold text-gray-800">
                 <span>Total</span>
-                <span>$. {totforquantity - discount + delivery }</span>
+                <span>$. {(totforquantity - discount + delivery).toPrecision(4) }</span>
               </div>
               <p className="text-sm text-gray-500 mt-1">VAT included</p>
             </div>

@@ -35,7 +35,7 @@ const Navbar = ({ search, session }: Props) => {
             alt="Logo"
             className="h-10 w-10"
           />
-          <span className="text-2xl font-bold">EComStore</span>
+          <span className="text-2xl font-bold"><div className="hidden md:block">EComStore</div></span>
         </div>
       </Link>
 

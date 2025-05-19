@@ -51,7 +51,7 @@ const Itemdetailsbox = ({ item }: { item: ProductItem }) => {
 
     // }
   return (
-    <form action={formAction1} className="w-2/6  p-4  bg-gray-50 outline rounded-sm outline-gray-300/50 ">
+    <form action={formAction1} className="w-full md:w-2/6  p-4  bg-gray-50 outline rounded-sm outline-gray-300/50 ">
  
   <div className='flex flex-col gap-7 outline p-4 bg-gray-200/30 outline-gray-200'>
 
@@ -91,7 +91,7 @@ const Itemdetailsbox = ({ item }: { item: ProductItem }) => {
   </div>
 
   {/* Add to Cart Button */}
-  <div className='flex flex-row gap-10'>
+  <div className='flex flex-row gap-5 md:gap-10'>
   
     <Button onClick={
       ()=>{if (session) {
@@ -100,12 +100,12 @@ const Itemdetailsbox = ({ item }: { item: ProductItem }) => {
         toast.warn("Please Sign in to save to Cart!");
         router.push("/auth/login");
       }
-    }} type="button" className="w-[200px] hover:bg-gray-800 bg-black rounded-none" size={'lg'} >
+    }} type="button" className="w-[100px] md:w-[200px] hover:bg-gray-800 bg-black rounded-none" size={'lg'} >
         Buy Now
     </Button>
     
   
-  <Button  type="submit" className="w-[200px]" size={'lg'} variant="outline" >
+  <Button  type="submit" className="w-[100px] md:w-[200px]" size={'lg'} variant="outline" >
     Add to Cart
   </Button>
   

@@ -38,6 +38,15 @@ const Page = async({ params }: { params: Promise<{ id: string }> }) => {
     //     "id": 1,
     //     "sold": 120
     //   }
+    const today = new Date();
+    const currentMonth = today.toLocaleString('default', { month: 'long' });
+    const currentDay = today.getDate();
+      
+
+    const shippingDate = new Date();
+    shippingDate.setDate(today.getDate() + 14);
+    const shippingMonth = shippingDate.toLocaleString('default', { month: 'long' });
+    const shippingDay = shippingDate.getDate();
       
   return (
     <>
@@ -45,11 +54,11 @@ const Page = async({ params }: { params: Promise<{ id: string }> }) => {
 
     <Navbar search={''} session={session?true:false} />
     </div>
-    <div className="flex flex-row bg-gray-50 p-4  min-h-[500px] p-[50px] pt-40">
-  {/* Review Image */}
-  <div className="w-2/6 flex items-center justify-center   bg-white p-2 outline rounded-sm outline-gray-300/50 ">
-    <img src={item?.thumbnail} alt="Review" className="max-w-full object-contain" />
-  </div>
+    <div className="flex flex-col md:flex-row bg-gray-50 p-4  min-h-[500px] md:p-[50px] pt-20 md:pt-40">
+      {/* Review Image */}
+      <div className="w-full md:w-2/6 flex items-center justify-center   bg-white p-2 outline rounded-sm outline-gray-300/50 ">
+        <img src={item?.thumbnail} alt="Review" className="max-w-full object-contain" />
+      </div>
   
   
   
@@ -59,7 +68,7 @@ const Page = async({ params }: { params: Promise<{ id: string }> }) => {
 
 
   {/* Price + Shipping */}
-  <div className='w-2/6 '>
+  <div className='w-full md:w-2/6 '>
   <Card className="w-full min-h-[00px] bg-gray-50">
   <CardContent className="p-4 space-y-4 text-md text-gray-700 flex flex-col gap-5">
     {/* Dummy Address */}
@@ -87,7 +96,8 @@ const Page = async({ params }: { params: Promise<{ id: string }> }) => {
       <Badge variant="outline" className="bg-blue-100 text-blue-800">
         Estimated Delivery
       </Badge>
-      <span>May 18 - May 22</span>
+      
+      <span>{currentMonth} {currentDay} - {shippingMonth} {shippingDay}</span>
     </div>
   </CardContent>
 </Card>

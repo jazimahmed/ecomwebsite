@@ -61,13 +61,13 @@ const Subcartpage = ({products,quantity}) => {
   
   return (
     
-    <div className="flex justify-between px-30 pt-10 gap-6">
+    <div className="flex flex-col md:flex-row justify-between px-4 md:px-30 pt-10 gap-6">
       {/* Left - Cart Items */}
-      <div className="w-2/3 p-10 bg-gray-100/50 outline outline-gray-200">
-        <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
+      <div className="md:w-2/3 w-full p-5 md:p-10 bg-gray-100/50 outline outline-gray-200">
+        <h2 className="text-lg md:text-2xl font-bold mb-6">Shopping Cart</h2>
         {cartItems.map(item => (
           <div key={item.id} className="flex items-center justify-between border-b py-6">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center md:gap-4 gap-2">
               <input
                 type="checkbox"
                 className="h-5 w-5 accent-black"
@@ -76,14 +76,14 @@ const Subcartpage = ({products,quantity}) => {
               />
               <img src={item.thumbnail} alt={item.title} className="w-20 h-20 object-contain" />
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
+                <h3 className="text-sm md:text-lg font-semibold text-gray-800">{item.title}</h3>
                 <div className="text-orange-600 text-xl font-bold">$. {item.price}</div>
                 
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Button variant="outline" onClick={() => decreaseQuantity(item.id)}>-</Button>
-              <span className="text-lg">{item.quantity}</span>
+              <span className="text-sm md:text-lg">{item.quantity}</span>
               <Button variant="outline" onClick={() => increaseQuantity(item.id)}>+</Button>
             </div>
           </div>
@@ -91,20 +91,20 @@ const Subcartpage = ({products,quantity}) => {
       </div>
 
       {/* Right - Summary */}
-      <div className="w-1/3 bg-gray-50 p-6 border rounded-lg h-fit">
-        <h2 className="text-2xl font-bold mb-4">Order Summary</h2>
-        <div className="flex justify-between mb-2 text-lg">
+      <div className="w-full md:w-1/3 bg-gray-50 p-6 border rounded-lg h-fit">
+        <h2 className="text-lg md:text-2xl font-bold mb-4">Order Summary</h2>
+        <div className="flex justify-between mb-2 md:text-lg text-sm">
           <span>Subtotal</span>
-          <span>$. {total}</span>
+          <span>$. {(total).toPrecision(4)}</span>
         </div>
-        <div className="flex justify-between mb-2 text-lg">
+        <div className="flex justify-between mb-2 md:text-lg text-sm">
           <span>Shipping</span>
-          <span>$. 0</span>
+          <span>$. {(total * 0.14).toPrecision(4)}</span>
         </div>
         <div className="border-t border-gray-200 my-4"></div>
-        <div className="flex justify-between font-bold text-xl mb-10">
+        <div className="flex justify-between font-bold md:text-xl text-lg mb-10">
           <span>Total</span>
-          <span>$. {total}</span>
+          <span>$. {(total - (total * 0.14)).toPrecision(4)}</span>
         </div>
 
         <Button onClick={()=>{toast.success('payment proceed successfully!')}} className="w-full bg-black hover:bg-gray-800 rounded-none text-white text-lg">

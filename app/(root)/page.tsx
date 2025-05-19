@@ -84,11 +84,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
       </div>
       
 
-      <div className="pt-20">
+      <div className="pt-20 bg-gray-100">
         {!searchQuery && !categoryQuery && <div className="z-0">
-          <div className="flex flex-row gap-10 mt-10">
-            <div className="w-2/3"><Carousel /></div>
-            <div className="w-1/3"><img src='/offer.png' className="w-[400px] " alt="offerpic"/></div>
+          <div className="flex md:flex-row flex-col gap-10 mt-10 justify-center item-center">
+            <div className="w-full p-3 md:w-2/3"><Carousel /></div>
+            <div className="w-full  md:w-1/3"><img src='/offer.png' className="w-[400px] " alt="offerpic"/></div>
             </div>
 
 
@@ -109,7 +109,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ s
       
 
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 bg-gray-100 px-20 pt-10">
+      <div className="grid grid-cols-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 bg-gray-100 md:px-20 pt-10">
         {products.length > 0 ? (
           products.map((item: ProductItem) => (
             <Link href={`/product/${item.id}`} key={item.id}>

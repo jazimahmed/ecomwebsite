@@ -17,7 +17,7 @@ const Searchbox = ({ searchParam = "" }: Props) => {
       
       {(search || sort) && (
         <form action="/" method="GET">
-          <Button variant="destructive" type="submit" className="py-3 px-4">
+          <Button variant="destructive" type="submit" className="py-3 px-4 h-[30px] w-[30px] md:h-[50px] md:w-[50px]">
             X
           </Button>
         </form>
@@ -34,7 +34,7 @@ const Searchbox = ({ searchParam = "" }: Props) => {
             defaultValue={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="pl-10 pr-4 py-3 w-[400px] text-base h-[50px] "
+            className="pl-10 pr-4 py-3 w-[100px] md:w-[400px] text-base h-[30px] md:h-[50px] "
           />
         </div>
 
@@ -43,7 +43,7 @@ const Searchbox = ({ searchParam = "" }: Props) => {
             name="sort-select"
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="h-[50px] border rounded-md px-3 text-sm"
+            className="h-[30px] w-[100px] md:h-[50px] border rounded-md px-3 text-sm"
           >
             <option value="">Sort</option>
             <option value="price-asc">Price ↑ Low - High</option>
@@ -53,7 +53,7 @@ const Searchbox = ({ searchParam = "" }: Props) => {
           </select>
         )}
 
-        <Button variant="outline" type="submit" className="py-3 px-4 h-[50px] w-[50px]">
+        <Button variant="outline" type="submit" className="py-3 px-4 h-[30px] w-[30px] md:h-[50px] md:w-[50px]">
           {sort ? <label className='text-xs text-gray-600'>Apply</label> : <Search className="h-5 w-5 text-gray-700" />}
         </Button>
       </form>

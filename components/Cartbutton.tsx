@@ -29,7 +29,7 @@ const Cartbutton = ({session}: Props) => {
         }
       variant="outline"
       size="lg"
-      className="px-4 py-2 bg-blue-300 hover:bg-blue-400"
+      className="px-4 py-2 bg-blue-300 hover:bg-blue-400 h-[30px] w-[30px] md:h-[50px] md:w-[50px]"
     >
       <ShoppingCart className="h-6 w-6" />
     </Button>
