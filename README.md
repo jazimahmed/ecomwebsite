@@ -21,6 +21,7 @@ A full-stack e-commerce application built with **Next.js**, **Tailwind CSS**, **
 ## 🚀 Features
 
 - ✅ User registration and login using both credential method and git hub O auth method
+- ✅ email verify after successfull registration using RESEND
 - ✅ View all products and filter by category
 - ✅ View profile page details and edit details
 - ✅ Add to cart and manage cart items
@@ -63,6 +64,7 @@ Add the following in `.env` (env should under root folder):
 
 ```
 DATABASE_URL=your_database_url_here
+RESEND_API_KEY=some_value_here
 ```
 
 Add the following in `.env.local` (env should under root folder):
@@ -71,6 +73,8 @@ Add the following in `.env.local` (env should under root folder):
 AUTH_SECRET=some_value_here
 AUTH_GITHUB_SECRET=some_value_here
 AUTH_GITHUB_ID=some_value_here
+NEXT_PUBLIC_BASE_URL=some_value_here
+RESEND_TEST_EMAIL=some_value_here  #it should be the mail address used to create the account in "resend"
 
 ```
  if you have still confusion see the .env.example file inside project root
