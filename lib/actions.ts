@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import EmailTemplate from '@/components/components/email-template';
 import { Resend } from 'resend';
 import * as React from 'react';
-import { NextResponse } from 'next/server';
 interface RegisterFormState {
     success: boolean;
     message?: string;
