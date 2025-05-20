@@ -53,7 +53,7 @@ export default function LoginForm() {
       const res = await sendWelcomeEmail(data.email, data.username);
       //console.log('111', res)
   
-      if (!res.data?.id) {
+      if (!res?.id) {
         toast.error("Failed to send welcome email. Please try later.");
         return; 
       }

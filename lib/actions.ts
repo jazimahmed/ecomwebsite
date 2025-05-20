@@ -2,6 +2,10 @@
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma' // Adjust path if needed
 import bcrypt from 'bcrypt'
+import EmailTemplate from '@/components/components/email-template';
+import { Resend } from 'resend';
+import * as React from 'react';
+import { NextResponse } from 'next/server';
 interface RegisterFormState {
     success: boolean;
     message?: string;
@@ -114,27 +118,32 @@ export async function updateUser(data: UserData) {
 // utils/sendEmail.ts
 export async function sendWelcomeEmail(email: string, username: string) {
   console.log('registered users email address', email);
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   //You can only send testing emails to your own email address (your resend account email address). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain 
 
   const testEmail = process.env.RESEND_TEST_EMAIL;
 
-  
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ testEmail, username }),
+  try {
+  const { data, error } = await resend.emails.send({
+    from: 'Acme <onboarding@resend.dev>',
+    to: [testEmail as string],
+    subject: "Registration successfull!",
+    react: EmailTemplate({ firstName : username }) as React.ReactElement,
   });
-  
+  //console.log('111', error)
 
-  const result = await res.json();
-  if (!res.ok) {
-    const errorMessage =
-      typeof result.error === 'string'
-        ? result.error
-        : result.message || 'Failed to send email';
-    throw new Error(errorMessage);
+  if (error) {
+    throw new Error(error.message || 'Failed to send email');
   }
-  return result;
+
+  return data;
+} catch (err) {
+  console.error('Email send error:', err);
+  throw err; // Let the caller handle the error
+}
+
+  
+  
 }
 
