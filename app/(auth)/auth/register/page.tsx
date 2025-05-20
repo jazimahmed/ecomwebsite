@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useState,startTransition } from 'react'
 import { signIn } from 'next-auth/react'
-import { register } from '@/lib/actions'
+import { register, sendWelcomeEmail } from '@/lib/actions'
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -16,7 +16,7 @@ export default function LoginForm() {
   const router = useRouter();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
-  function handleClick(e : React.FormEvent<HTMLFormElement>) {
+  async function handleClick(e : React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); 
 
     const form = document.querySelector("form");
@@ -48,6 +48,20 @@ export default function LoginForm() {
     
   
     setErrors({});
+
+    try {
+      const res = await sendWelcomeEmail(data.email, data.username);
+      //console.log('111', res)
+  
+      if (!res.data?.id) {
+        toast.error("Failed to send welcome email. Please try later.");
+        return; 
+      }
+    } catch (err) {
+      console.error("Email send failed", err);
+      toast.error("Failed to send welcome email. Please try again.");
+      return;  
+    }
 
 
 

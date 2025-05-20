@@ -111,3 +111,30 @@ export async function updateUser(data: UserData) {
   });
 }
 
+// utils/sendEmail.ts
+export async function sendWelcomeEmail(email: string, username: string) {
+  console.log('registered users email address', email);
+
+  //You can only send testing emails to your own email address (your resend account email address). To send emails to other recipients, please verify a domain at resend.com/domains, and change the `from` address to an email using this domain 
+
+  const testEmail = process.env.RESEND_TEST_EMAIL;
+
+  
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/send`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ testEmail, username }),
+  });
+  
+
+  const result = await res.json();
+  if (!res.ok) {
+    const errorMessage =
+      typeof result.error === 'string'
+        ? result.error
+        : result.message || 'Failed to send email';
+    throw new Error(errorMessage);
+  }
+  return result;
+}
+
